@@ -1,0 +1,25 @@
+body {
+   color: darkgrey;   
+}
+
+h1 {
+    text-align: center;
+    color: darkslateblue;
+}
+
+.displayMoment{
+    text-align: center;
+    color: darkslateblue;
+}
+
+.container{
+    text-align: center;
+}
+.dropdown{
+    display: inline-block;
+}
+
+.card{
+    border-color: darkkhaki;
+    color: darkslateblue;
+}
