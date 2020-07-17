@@ -1,25 +1,220 @@
-body {
-   color: darkgrey;   
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #F7DDD4;
 }
 
-h1 {
+.main{
+    height: 100%;
+}
+#header{
+    width: 100%;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: #FF4B0A;
+}
+
+#header-content{
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 0 auto;
+    max-width: 900px;
     text-align: center;
-    color: darkslateblue;
 }
 
-.displayMoment{
+#header-content h2{
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 3em; 
+}
+
+#header-content p{
+    color: #fff;
+    font-size: 1.5em;
+}
+
+.citySearchForm input{
+    position: relative;
+    font-size: 17px;
+    border: 1px solid #342809;
+    float: left;
+    width: 100%;
+    background: white;
+    border-radius: .5em;
+}
+
+#citySearchBtn{
+    position: absolute;
+    width: 20%;
+    right: -10px;
+    z-index: 2;
+    background: #342809;
+    font-size: 17px;
+    padding: 0;
+    color: white;
+    border-radius: 0 .5em .5em 0;
+}
+
+.history{
+    background: #FCBA12;
+    color: black;
+    border-radius: 1.5em;
+    min-height: 100px;
     text-align: center;
-    color: darkslateblue;
+    padding: 20px;
+    margin: auto;
+    width: 50%;
 }
 
-.container{
+#pastCityList{
+    padding-inline-start: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cityCurrentWeather{
+    width: 80%;
+    color: black;
+    order: 1;
+    flex-basis: 100%;
+    margin-bottom: 20px;
+
+}
+
+.cityForcastWeather{
+    width: 80%;
+    color: black;
+    flex-basis: 100%;
+    order: 2;
+    margin-bottom: 20px;
+}
+
+.currentWeatherCard{
+    padding:10px;
+    border-radius: .5em;
+    background-color: #145ADB;
+    font-size: 13pt;
+}
+
+.forcastWeatherCard{
+    /* border: 1.5px solid black; */
+    border-radius: .5em;
+    background-color: springgreen;
+    background: linear-gradient(45deg, rgb(56, 219, 138), rgb(192,228,248));
+    padding: 7px;
+    font-size: 13pt;
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap:wrap;
+}
+
+.flex-child{
+    flex:1;
+}
+
+.forcast-child{
+    flex-flow: row wrap;
+}
+
+#forcast-0,#forcast-1,#forcast-2,#forcast-3{
+    border-right: solid 1px white;
+}
+
+#currentCard-img{
+    min-height: 50px;
+    justify-content: center;
+}
+#currentCard-stats{
+    flex-grow: 2;
+    height: auto;
+
+}
+.cityForcastWeather{
+    flex-wrap: wrap;
+}
+
+.forcastBanner{
+    font-size: 20pt;
     text-align: center;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 8px;
 }
-.dropdown{
-    display: inline-block;
+#currentCard-cityName{
+    font-size: 24pt;
 }
 
-.card{
-    border-color: darkkhaki;
-    color: darkslateblue;
+.uvLow{
+    background-color: green;
+    color: white
+}
+
+.uvModerate{
+    background-color: yellow;
+    color: black;
+}
+
+.uvHigh{
+    background-color: orange;
+    color: black;
+}
+
+.uvVeryHigh{
+    background-color: red;
+    color: white;
+}
+
+.uvExtreme{
+    background-color: purple;
+    color: white;
+}
+
+@media only screen and (max-width:660px){
+    aside{
+        float: none;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .forcastWeatherCard, .currentWeatherCard{
+        margin-left: 0;
+    }
+
+    .cityCurrentWeather, .cityForcastWeather{
+        width: 100%;
+    }
+    .forcast-child{
+        flex-basis: 100%;
+        margin-bottom: 5px;
+    }
+    #header-content h2{
+        font-size: 2em;
+    }
+    #header-content p{
+        font-size: 1em;
+    }
+    .citySearchForm input{
+        width: 75%;
+        float: none;
+    }
+    #citySearchbtn{
+        right: 30px;
+    }
+    #forcast-0,#forcast-1,#forcast-2,#forcast-3{
+        border-right: none;
+        border-bottom: solid 1px white;
+    }
 }
