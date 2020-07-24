@@ -118,7 +118,7 @@ function displayForecastWeather(forecastData){
 
       let forecastTemp = $("<div></div>").text("Temp: "+ forecastArr[i].main.temp+"F");
 
-      let forecastHumidity =$("<div></div>").text("Humidity: "+ forecastArr[i].main.humidity+"%");
+      let forecastHumidity = $("<div></div>").text("Humidity: "+ forecastArr[i].main.humidity+"%");
 
       let forecastChild = "#forcast-"+j;
       //round temp to whole number
@@ -153,11 +153,11 @@ function displaySearchHistory(){
           aEl.css("text-decoration", "none");
           aEl.css("color", "black");
 
-          liEl.append(aEl);        
+          liEl.prepend(aEl);        
 
-          liEl.attr("style", "list-style: none;")
-        
-          $("#pastCityList").append(liEl);
+          liEl.attr("style", "list-style: none;");
+          //liEl.attr("style", "verticle-align: middle;");
+          $("#pastCityList").prepend(liEl);
       }
   } else{
       $("#pastCityList").text("Use the Search function to get started")

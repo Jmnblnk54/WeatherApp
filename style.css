@@ -76,6 +76,10 @@ body{
     width: 50%;
 }
 
+#pastSearches{
+    display: table-cell;    
+}
+
 #pastCityList{
     padding-inline-start: 0;
     display: flex;
@@ -105,7 +109,7 @@ body{
     border-radius: .5em;
     background-color: #145ADB;
     font-size: 13pt;
-}
+    }
 
 .forcastWeatherCard{
     /* border: 1.5px solid black; */
