@@ -82,7 +82,7 @@ body{
 
 #pastCityList{
     padding-inline-start: 0;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
 }

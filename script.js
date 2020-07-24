@@ -90,7 +90,7 @@ function formatDate(dateStr){
 function formatCityStr(str){
   let cityName = str;
 
-  cityName=cityName.split(" ").join("");
+  cityName=cityName.split("").join("");
   cityName=cityName.toLowerCase();
   cityName= statecheck(cityName);
 
@@ -301,6 +301,32 @@ $('document').ready(function(){
     }
   });
 });
+// Look at ajax response for specific information on object to get city list
+
+// //check if the city retrieved from Zomato API call is the one user intended 
+// function verifyUserCity(response, date, userInput) {
+//   $("#cities").empty();
+
+//   //if the length of the response is longer than 1, build & render buttons on modal for user selection
+//   if (response.length > 1) {
+//     for (cityObj in response) {
+//       let cityButton = $("<button></button>").attr("class", "btn pure-button pure-button-primary cityOptions");
+//       cityButton.text(response[cityObj].name);
+//       cityButton.attr("id", response[cityObj].id);
+//       cityButton.attr("data-state", response[cityObj].state_code)
+
+//       $("#cities").append(cityButton);
+//       $("#myModal").attr("style", "display: block;");
+//     }
+//   } else {
+//   //else use the element and call function that contain the AJAX calls for resturants and events
+//     let cityInfoObj = {
+//       name: userInput,
+//       zomatoId: response[0].id,
+//       stateCode: response[0].state_code
+//     }
+//     useCitiesAPI(cityInfoObj, date)
+//   }
 
 $("#pastCityList").click(function(event){
   event.preventDefault();
