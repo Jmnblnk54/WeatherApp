@@ -1,5 +1,6 @@
+//call for UV Index
 function getAndDisplayUVIndex(lon, lat){
-  let queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=18bc71d7f6e0c92a913dd1a6fd41b1da&lat="+lat+"&lon="+lon;
+  let queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=c53c7a5db8feb576c94526d1ba37eee7&lat="+lat+"&lon="+lon;
   
   $.ajax({
       url: queryURL,
@@ -21,12 +22,13 @@ function getAndDisplayUVIndex(lon, lat){
   })
 
 }
-//Display current weather stats
+
+//Display current weather
 function displayCurrentWeather(currentData){
   $("#currentCard-img").empty();
   $("#currentCard-stats").empty();
 
-  let imgSrc = "https://openweathermap.org/img/wn/"+currentData.weather[0].icon+"@2x.png"
+  let imgSrc = "https://openweathermap.org/img/wn/"+currentData.weather[0].icon+"@2x.png";
 
   let currentImg = $("<img id='currentIcon'>");
   currentImg.attr("src", imgSrc);
@@ -52,8 +54,9 @@ function displayCurrentWeather(currentData){
   $("#currentCard-stats").append(currentHumidity);
   $("#currentCard-stats").append(currentWind);
   
-}
+};
 
+//put state in proper format for ajax call
 function statecheck(str){
   let count = 0;
   let index;   
@@ -61,8 +64,8 @@ function statecheck(str){
   for(let i = 0; i<str.length; i++){
       if(str[i]===","){
           ++count;
-      }
-  }
+      };
+  };
   if (count===1){
       index = str.search(",")+1;
       let subStr = str.substr(index);
@@ -70,12 +73,13 @@ function statecheck(str){
           subStr = subStr.toUpperCase(subStr);
           if(stateAbbreviations[i]=== subStr){
               str = str.substr(0,index)+""+subStr+",us"
-          }
-      }
+          };
+      };
   };
   return str;
-}
+};
 
+//format the date
 function formatDate(dateStr){
   const d = new Date(dateStr)
   const year = d.getFullYear();
@@ -84,9 +88,10 @@ function formatDate(dateStr){
 
   let date = month+"/"+day+"/"+year;
 
-  return date
-}
+  return date;
+};
 
+//format the city
 function formatCityStr(str){
   let cityName = str;
 
@@ -94,15 +99,18 @@ function formatCityStr(str){
   cityName=cityName.toLowerCase();
   cityName= statecheck(cityName);
 
-  return cityName
-}
+  return cityName;
+};
 
+//format current date
+let now = new Date("December 25, 2020");
+console.log(now.getDate());
 function displayForecastWeather(forecastData){
   
-  let forecastArr = forecastData.list
-  let j = 0
+  let forecastArr = forecastData.list;
+  let j = 0;
 
-  
+  //loop over returned data for img, temp, date, humidity
   for (let i =0; i<40; i+=8){
       let imgSrc = "http://openweathermap.org/img/wn/"+forecastArr[i].weather[0].icon+"@2x.png";
 
@@ -112,17 +120,18 @@ function displayForecastWeather(forecastData){
       forecastImg.css("margin", "0 auto");
       forecastImg.css("display", "block");
 
-      let formattedDate = formatDate(forecastArr[i].dt_txt);
+      let formattedDate = new Date(formatDate(forecastArr[i].dt_txt)).toDateString();
+      
       let forecastDateDiv = $("<div></div>").css("font-weight", "bold");
       forecastDateDiv.text(formattedDate)
 
-      let forecastTemp = $("<div></div>").text("Temp: "+ forecastArr[i].main.temp+"F");
+      let roundedTemp = Math.round(parseInt(forecastArr[i].main.temp));
+      let forecastTemp = $("<div></div>").text("Temp: "+ roundedTemp+"F");
 
       let forecastHumidity = $("<div></div>").text("Humidity: "+ forecastArr[i].main.humidity+"%");
 
       let forecastChild = "#forcast-"+j;
-      //round temp to whole number
-      //forecastTemp = Math.round(parseInt(forecastTemp));
+      
       $(forecastChild).empty();
 
       $(forecastChild).append(forecastDateDiv);
@@ -133,10 +142,11 @@ function displayForecastWeather(forecastData){
       $(forecastChild).css("margin-bottom", "10px");
 
       j++;
-  }
+  };
 
-}
+};
 
+//create and display previous cities searched
 function displaySearchHistory(){
   $("#pastCityList").empty();
   if("weatherSearchHistory" in localStorage){
@@ -146,28 +156,29 @@ function displaySearchHistory(){
       for (const city in cityArr){
           let liEl = $("<li></li>");
           let aEl =$("<a></a>");
-          
-          aEl.text(cityArr[city].name);
+          let capCity = cityArr[city].name.split("");
+          capCity[0] = capCity[0].toUpperCase();
+          capCity = capCity.join("");
+          aEl.text(capCity);
           aEl.attr("href", "#");
           aEl.attr("id", cityArr[city].name);
           aEl.css("text-decoration", "none");
-          aEl.css("color", "black");
-
+          aEl.addClass("searchedCity");
           liEl.prepend(aEl);        
-
+        
           liEl.attr("style", "list-style: none;");
-          //liEl.attr("style", "verticle-align: middle;");
           $("#pastCityList").prepend(liEl);
-      }
+      };
   } else{
       $("#pastCityList").text("Use the Search function to get started")
-  }
-}
+  };
+};
 
+//add searched city to local storage
 function updateSearchHistory(city){
   let cityArr = [];
   let isSearchedBefore = false;
-  let cityObj = {name:city}
+  let cityObj = {name:city};
 
   if("weatherSearchHistory" in localStorage){
       let jsonStr = localStorage.getItem("weatherSearchHistory");
@@ -185,21 +196,22 @@ function updateSearchHistory(city){
 
       if(cityArr.length>10){
           cityArr.length=10;
-      }
+      };
 
       localStorage.setItem("weatherSearchHistory", JSON.stringify(cityArr));
-  }
+  };
 
   if(localStorage.getItem("weatherSearchHistory")===null){
       cityArr.push(cityObj);
       localStorage.setItem("weatherSearchHistory", JSON.stringify(cityArr));
-  }
+  };
   
   displaySearchHistory();
-}
+};
 
+//ajax call for weather
 function getWeatherData(cityStr){
-  let queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityStr+"&appid=18bc71d7f6e0c92a913dd1a6fd41b1da&units=imperial"
+  let queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityStr+"&appid=c53c7a5db8feb576c94526d1ba37eee7&units=imperial"
 
   $.ajax({
       url:queryURL,
@@ -208,17 +220,18 @@ function getWeatherData(cityStr){
       displayCurrentWeather(response);
   })
 
-  let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q="+cityStr+"&appid=18bc71d7f6e0c92a913dd1a6fd41b1da&units=imperial"
+  let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q="+cityStr+"&appid=c53c7a5db8feb576c94526d1ba37eee7&units=imperial"
 
   $.ajax({
       url:forecastQueryURL,
       method:"GET"
   }).then(function(response){
       displayForecastWeather(response);
-  })
+  });
 
-}
+};
 
+//show recently search history from local storage
 function renderRecentCitySearch(){
   if("weatherSearchHistory" in localStorage){
       let jsonStr = localStorage.getItem("weatherSearchHistory");
@@ -226,9 +239,10 @@ function renderRecentCitySearch(){
       let city = cityArr[0].name;
       city = formatCityStr(city);
       getWeatherData(city);
-  }
-}
+  };
+};
 
+//create and render weather cards
 function renderWeatherCards(){
   
   let flexContainerEl = $("<div></div>").attr("class", "flex-container");
@@ -269,7 +283,7 @@ function renderWeatherCards(){
 
   $(".main").append(flexContainerEl)
 
-}
+};
 
 displaySearchHistory();
 
@@ -279,7 +293,7 @@ if("weatherSearchHistory" in localStorage){
 };
 
 
-
+//listen for click on search button and run 
 $('document').ready(function(){
   $("#citySearchBtn").click(function(event){
     event.preventDefault();
@@ -301,37 +315,11 @@ $('document').ready(function(){
     }
   });
 });
-// Look at ajax response for specific information on object to get city list
 
-// //check if the city retrieved from Zomato API call is the one user intended 
-// function verifyUserCity(response, date, userInput) {
-//   $("#cities").empty();
-
-//   //if the length of the response is longer than 1, build & render buttons on modal for user selection
-//   if (response.length > 1) {
-//     for (cityObj in response) {
-//       let cityButton = $("<button></button>").attr("class", "btn pure-button pure-button-primary cityOptions");
-//       cityButton.text(response[cityObj].name);
-//       cityButton.attr("id", response[cityObj].id);
-//       cityButton.attr("data-state", response[cityObj].state_code)
-
-//       $("#cities").append(cityButton);
-//       $("#myModal").attr("style", "display: block;");
-//     }
-//   } else {
-//   //else use the element and call function that contain the AJAX calls for resturants and events
-//     let cityInfoObj = {
-//       name: userInput,
-//       zomatoId: response[0].id,
-//       stateCode: response[0].state_code
-//     }
-//     useCitiesAPI(cityInfoObj, date)
-//   }
-
+//pull information from previously searched city
 $("#pastCityList").click(function(event){
   event.preventDefault();
   let city = event.target.id;
-
   let jsonStr = localStorage.getItem("weatherSearchHistory");
   let cityArr = JSON.parse(jsonStr);
 

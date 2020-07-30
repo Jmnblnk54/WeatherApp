@@ -14,7 +14,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* overflow: hidden; */
     top: 0;
     left: 0;
     width: 100%;
@@ -65,6 +64,10 @@ body{
     border-radius: 0 .5em .5em 0;
 }
 
+.container{
+    text-align: center;
+}
+
 .history{
     background: #FCBA12;
     color: black;
@@ -72,19 +75,28 @@ body{
     min-height: 100px;
     text-align: center;
     padding: 20px;
-    margin: auto;
     width: 50%;
+    display: inline-block;
 }
-
+.strong{
+    text-align: center;
+}
 #pastSearches{
-    display: table-cell;    
+    display: table-cell;  
+    display: inline-block;  
 }
 
 #pastCityList{
     padding-inline-start: 0;
-    /* display: flex; */
     align-items: center;
     justify-content: center;
+}
+
+.searchedCity{
+    color: black;
+}
+.searchedCity:hover{
+    color: #FF4B0A;
 }
 
 .cityCurrentWeather{
@@ -114,8 +126,7 @@ body{
 .forcastWeatherCard{
     /* border: 1.5px solid black; */
     border-radius: .5em;
-    background-color: springgreen;
-    background: linear-gradient(45deg, rgb(56, 219, 138), rgb(192,228,248));
+    background: #FAFAD2;
     padding: 7px;
     font-size: 13pt;
 }
@@ -133,7 +144,10 @@ body{
     flex-flow: row wrap;
 }
 
-#forcast-0,#forcast-1,#forcast-2,#forcast-3{
+#forcast-0,
+#forcast-1,
+#forcast-2,
+#forcast-3{
     border-right: solid 1px white;
 }
 
@@ -187,17 +201,13 @@ body{
 }
 
 @media only screen and (max-width:660px){
-    aside{
-        float: none;
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .forcastWeatherCard, .currentWeatherCard{
+    .forcastWeatherCard, 
+    .currentWeatherCard{
         margin-left: 0;
     }
 
-    .cityCurrentWeather, .cityForcastWeather{
+    .cityCurrentWeather, 
+    .cityForcastWeather{
         width: 100%;
     }
     .forcast-child{
@@ -217,7 +227,10 @@ body{
     #citySearchbtn{
         right: 30px;
     }
-    #forcast-0,#forcast-1,#forcast-2,#forcast-3{
+    #forcast-0,
+    #forcast-1,
+    #forcast-2,
+    #forcast-3{
         border-right: none;
         border-bottom: solid 1px white;
     }
