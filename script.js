@@ -19,9 +19,9 @@ function getAndDisplayUVIndex(lon, lat){
 
       currentUV.append(spanEl);
       $("#currentCard-stats").append(currentUV);
-  })
+  });
 
-}
+};
 
 //Display current weather
 function displayCurrentWeather(currentData){
@@ -40,9 +40,9 @@ function displayCurrentWeather(currentData){
   
   let currentHumidity = $("<div></div>").text("Humidity: "+currentData.main.humidity+"%");
 
-  let currentWind = $("<div></div>").text("Wind Speed: "+currentData.wind.speed+" mph")
+  let currentWind = $("<div></div>").text("Wind Speed: "+currentData.wind.speed+" mph");
   
-  getAndDisplayUVIndex(currentData.coord.lon, currentData.coord.lat)
+  getAndDisplayUVIndex(currentData.coord.lon, currentData.coord.lat);
 
   let currentDate = new Date();
   currentDate = formatDate(currentDate);
@@ -59,7 +59,10 @@ function displayCurrentWeather(currentData){
 //put state in proper format for ajax call
 function statecheck(str){
   let count = 0;
-  let index;   
+  let index; 
+  const stateAbbreviations = [
+    'AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FM','FL','GA', 'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MH','MD','MA', 'MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND', 'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT', 'VT','VI','VA','WA','WV','WI','WY'
+   ];  
 
   for(let i = 0; i<str.length; i++){
       if(str[i]===","){
@@ -78,6 +81,8 @@ function statecheck(str){
   };
   return str;
 };
+
+
 
 //format the date
 function formatDate(dateStr){
